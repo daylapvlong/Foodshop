@@ -8,4 +8,8 @@ public interface IAccountService {
     Account findAccountByPhoneAndPassword(String username, String password);
 
     Account findAccountByUsernameAndPassword(String username, String password);
+
+    boolean checkExistMail(String email);
+
+    boolean checkExistPhoneNumber(String phoneNumber);
 }

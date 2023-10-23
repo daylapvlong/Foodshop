@@ -8,10 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import java.net.http.HttpResponse;
@@ -25,13 +22,13 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String loginPage(
-            @CookieValue(value = "cuser") String cuser,
-            @CookieValue(value = "cpassword") String cpassword,
-            @CookieValue(value = "cremember") String cremember,
+            @CookieValue(value = "cuser", defaultValue = "") String cuser,
+            @CookieValue(value = "cpass", defaultValue = "") String cpass,
+            @CookieValue(value = "crem", defaultValue = "") String crem,
             Model model) {
         model.addAttribute("cuser", cuser);
-        model.addAttribute("cpassword", cpassword);
-        model.addAttribute("cremember", cremember);
+        model.addAttribute("cpass", cpass);
+        model.addAttribute("crem", crem);
         return "login";
     }
 
@@ -62,7 +59,13 @@ public class LoginController {
         } else if (account == null) {
             model.addAttribute("errmsg", "Username or password is not correct");
         }
-        return "authentication/login";
+        return "common/login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(WebRequest request, HttpSession session) {
+        session.removeAttribute("user");
+        return "redirect:/";
     }
 
 }

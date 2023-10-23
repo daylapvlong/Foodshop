@@ -1,4 +1,4 @@
-package swp.studentprojectportal.utils;
+package com.example.demo.utils;
 
 public class Validate {
     /*

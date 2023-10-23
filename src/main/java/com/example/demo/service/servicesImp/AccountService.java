@@ -43,4 +43,32 @@ public class AccountService implements IAccountService {
             cr.setMaxAge(0);
         }
     }
+
+    @Override
+    public boolean checkExistMail(String email) {
+        if(accountRepository.findUserByEmail(email) != null) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkExistPhoneNumber(String phoneNumber) {
+        if(accountRepository.findUserByPhone(phoneNumber) != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public Account createAccount(String fullName, String username, String password, int roleId) {
+        Account account = new Account();
+        account.setName(fullName);
+        account.setEmail(username);
+        account.setPassword(password);
+        account.setRole(2);
+
+        accountRepository.save(account);
+
+        return account;
+    }
 }
