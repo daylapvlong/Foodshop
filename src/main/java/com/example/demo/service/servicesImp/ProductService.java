@@ -4,6 +4,7 @@ import com.example.demo.model.Product;
 import com.example.demo.repository.IProductRepository;
 import com.example.demo.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,28 @@ public class ProductService implements IProductService {
     IProductRepository productRepository;
 
     @Override
-    public List<Product> getAllProducts(Integer pageNo, Integer pageSize, String search, Integer categoryId) {
-        return productRepository.searchProductAndFilterByCategory(search,categoryId,PageRequest.of(pageNo, pageSize)).getContent();
+    public long countProduces() {
+        return productRepository.count();
+    }
+
+    @Override
+    public List<Product> getAllProducts(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Product> homePage = productRepository.findAll(pageable);
+        List<Product> products = homePage.getContent();
+        return products;
+    }
+
+    @Override
+    public List<Product> getAllProductsByFilter(Integer pageNo, Integer pageSize, String search, Integer categoryId) {
+        List<Product> products;
+        if(categoryId == -1){
+            Pageable pageable = PageRequest.of(pageNo, pageSize);
+            Page<Product> homePage = productRepository.findAll(pageable);
+            products = homePage.getContent();
+        } else  {
+            products = productRepository.searchProductAndFilterByCategory(search,categoryId,PageRequest.of(pageNo, pageSize)).getContent();
+        }
+        return products;
     }
 }
