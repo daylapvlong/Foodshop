@@ -45,7 +45,7 @@ public class LoginController {
         model.addAttribute("cuser", username);
         Account account = accountService.findAccountByUsernameAndPassword(username.trim(), password);
         if (account != null) {
-            session.setAttribute("user", account);
+            session.setAttribute("account", account);
             //add to cookie
             String remember = request.getParameter("remember");
             Cookie cu = new Cookie("cuser", username);
@@ -55,7 +55,12 @@ public class LoginController {
             response.addCookie(cu);
             response.addCookie(cp);
             response.addCookie(cr);
-            return "redirect:" + afterLoginRoute;
+            if(account.getRole()==1)
+                return "redirect:admin/dashboard" ;
+            if(account.getRole()==2)
+                return "redirect:manager/home" ;
+            if(account.getRole()==3)
+                return "redirect:home" ;
         } else if (account == null) {
             model.addAttribute("errmsg", "Username or password is not correct");
         }

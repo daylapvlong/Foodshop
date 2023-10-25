@@ -11,7 +11,14 @@ import org.springframework.stereotype.Service;
 public class AccountService implements IAccountService {
     @Autowired
     IAccountRepository accountRepository;
-
+    @Override
+    public Account getAccountById(Integer id) {
+        return accountRepository.findById(id).orElse(null);
+    };
+    @Override
+    public Account saveAccount(Account account){
+        return accountRepository.save(account);
+    }
     @Override
     public Account findAccountByEmailAndPassword(String username, String password){
         return accountRepository.findAccountByEmailAndPassword(username, password);
