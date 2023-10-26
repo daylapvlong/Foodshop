@@ -2,7 +2,11 @@ package com.example.demo.service;
 
 import com.example.demo.model.Account;
 
+import java.util.List;
+
 public interface IAccountService {
+    List<Account> getAllAccount();
+
     Account getAccountById(Integer id);
 
     Account saveAccount(Account account);

@@ -128,7 +128,7 @@
                 <a th:href="@{'home?page=' + ${pageNumber}}" th:classappend="${pageNumber == thisPage} ? 'w3-bar-item w3-black w3-button' : 'w3-bar-item w3-button w3-hover-black'"
                    th:text="${pageNumber + 1}"></a>
             </th:block>
-            <a th:href="@{'home?page=' + ${maxPage}}" class="w3-bar-item w3-button w3-hover-black">»</a>
+            <a th:href="@{'home?page=' + ${maxPage - 1}}" class="w3-bar-item w3-button w3-hover-black">»</a>
         </div>
     </div>
 

@@ -7,10 +7,14 @@ import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AccountService implements IAccountService {
     @Autowired
     IAccountRepository accountRepository;
+    @Override
+    public List<Account> getAllAccount(){ return accountRepository.findAll();}
     @Override
     public Account getAccountById(Integer id) {
         return accountRepository.findById(id).orElse(null);
