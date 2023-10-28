@@ -8,13 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountService implements IAccountService {
     @Autowired
     IAccountRepository accountRepository;
     @Override
-    public List<Account> getAllAccount(){ return accountRepository.findAll();}
+    public List<Account> getAllAccountByRole(Integer roleId){ return accountRepository.findByRole(roleId);}
     @Override
     public Account getAccountById(Integer id) {
         return accountRepository.findById(id).orElse(null);
@@ -24,10 +25,28 @@ public class AccountService implements IAccountService {
         return accountRepository.save(account);
     }
     @Override
+    public void deleteUser(int id) {
+        accountRepository.deleteById(id);
+    }
+    @Override
     public Account findAccountByEmailAndPassword(String username, String password){
         return accountRepository.findAccountByEmailAndPassword(username, password);
     }
+    @Override
+    public boolean updateAccount(int id, String fullName, String email, String phone, String address) {
+        Optional<Account> account = accountRepository.findById(id);
+        if(account.isEmpty()) return false;
 
+        Account userData = account.get();
+
+        userData.setName(fullName);
+        userData.setEmail(email);
+        userData.setPhone(phone);
+        userData.setAddress(address);
+
+        accountRepository.save(userData);
+        return true;
+    }
     @Override
     public Account findAccountByPhoneAndPassword(String username, String password){
         return accountRepository.findAccountByPhoneAndPassword(username,password);
