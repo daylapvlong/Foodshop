@@ -29,6 +29,16 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public Product getProductById(Integer id){
+        return productRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void deleteProduct(Integer id){
+        productRepository.deleteById(id);
+    }
+
+    @Override
     public List<Product> getAllProductsByFilter(Integer pageNo, Integer pageSize, String search, Integer categoryId) {
         List<Product> products;
         if(categoryId == -1){

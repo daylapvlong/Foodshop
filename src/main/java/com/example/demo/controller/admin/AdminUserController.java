@@ -4,7 +4,6 @@ import com.example.demo.model.Account;
 import com.example.demo.service.servicesImp.AccountService;
 import com.example.demo.service.servicesImp.RoleService;
 import com.example.demo.utils.Validate;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class AdminUserController {
     @Autowired
     AccountService accountService;
-    @Autowired
-    private int adminRoleId;
     @Autowired
     RoleService roleService;
 
@@ -53,7 +49,7 @@ public class AdminUserController {
     @GetMapping("/admin/addAccount")
     public String addAccount(Model model){
         model.addAttribute("roleList",roleService.getAllRole());
-        return "admin/addAccount";
+        return "/admin/accountAdd";
     }
 
     @PostMapping("/admin/addUser")
@@ -74,39 +70,39 @@ public class AdminUserController {
 
         if(!Validate.validFullname(fullName)) {
             model.addAttribute("error", "Invalid Full Name!");
-            return "admin/addAccount";
+            return "/admin/accountAdd";
         }
 
         if(email.isEmpty() && phone.isEmpty()) {
             model.addAttribute("error", "Please input email or phone number!");
-            return "admin/addAccount";
+            return "/admin/accountAdd";
         }
 
         //check email
         if(!email.isEmpty() && !Validate.validEmail(email)) {
             model.addAttribute("error", "Email is invalid!");
-            return "admin/addAccount";
+            return "/admin/accountAdd";
         }
 
         if(!email.isEmpty() && accountService.checkExistMail(email)) {
             model.addAttribute("error", "Email already exist!");
-            return "admin/addAccount";
+            return "/admin/accountAdd";
         }
 
         //check phone
         if(!phone.isEmpty() && !Validate.validPhoneNumber(phone)) {
             model.addAttribute("error", "Phone is invalid!");
-            return "admin/addAccount";
+            return "/admin/accountAdd";
         }
 
         if(!phone.isEmpty() && accountService.checkExistPhoneNumber(phone)) {
             model.addAttribute("error", "Phone already exist!");
-            return "admin/addAccount";
+            return "/admin/accountAdd";
         }
 
         if(password.isEmpty()) {
             model.addAttribute("error", "Please input password!");
-            return "admin/addAccount";
+            return "/admin/accountAdd";
         }
 
         Account account = new Account();
@@ -125,12 +121,11 @@ public class AdminUserController {
         Account account = accountService.getAccountById(id);
         model.addAttribute("user", account);
         model.addAttribute("roleList",roleService.getAllRole());
-        return "admin/updateAccount";
+        return "/admin/accountDetail";
     }
 
     @PostMapping("/admin/updateAccount")
     public String updateUser(
-            HttpSession session,
             @RequestParam int id,
             @RequestParam String fullName,
             @RequestParam String email,
@@ -153,7 +148,7 @@ public class AdminUserController {
             else model.addAttribute("errorMsg", "Update failed");
         }
 
-        return "/admin/updateAccount";
+        return "/admin/accountDetail";
     }
 
     private String checkValidateUpdateUser(String email, String phone, Account user) {

@@ -8,5 +8,10 @@ public interface IProductService {
     long countProduces();
 
     List<Product> getAllProducts(int pageNo, int pageSize);
+
+    Product getProductById(Integer id);
+
+    void deleteProduct(Integer id);
+
     List<Product> getAllProductsByFilter(Integer pageNo, Integer pageSize, String search, Integer categoryId);
 }

@@ -5,8 +5,6 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-top: 100px;
-    margin-bottom: -80px;
 }
 
 .category .col-sm {
@@ -54,7 +52,7 @@
 .product {
     border: 3px solid #ddd;
     border-radius: 10px;
-    padding: 5spx;
+    padding: 5px;
     margin-bottom: 20px;
     margin-left: 10px;
 }

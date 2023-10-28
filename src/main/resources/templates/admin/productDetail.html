@@ -2,8 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <!-- Bootstrap -->
     <!-- Bootstrap -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
     <!-- simplebar -->
@@ -20,11 +18,8 @@
     <!-- Css -->
     <link th:href="@{/css/style.min.css}" rel="stylesheet" type="text/css" id="theme-opt"/>
     <link th:href="@{/css/modal.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!-- Datatables -->
-    <link th:href="@{https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css}" rel="stylesheet"/>
-    <link th:href="@{css/tablestyles.css}" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
     <style>
         h3, h4, h5, h6, button {
@@ -34,7 +29,7 @@
             font-size: 16px;
             line-height: 24px;
             text-transform: capitalize;
-            color: #FFFFFF;
+            color: black;
         }
 
         .modal-confirm {
@@ -138,9 +133,7 @@
             margin: 100px auto;
         }
     </style>
-    <title>Cart</title>
 </head>
-
 <body>
 <!-- Loader -->
 <div id="preloader">
@@ -157,60 +150,49 @@
     <main class="page-content bg-light">
         <div th:replace="~{dashboardHeader}"></div>
         <div class="container-fluid">
-            <!-- Shopping cart table -->
-            <div class="card">
-                <div class="card-header" style="background-color: #FF9EA2;">
-                    <h2 style="font-family: 'Poppins'; font-weight: revert; color: white; text-align: center;">
-                        All Account
-                    </h2>
+            <!-- Product Detail -->
+            <div class="layout-specing">
+                <div class="d-md-flex justify-content-between">
+                    <h5 class="mb-0" th:text="${product.name}"></h5>
+
+                    <nav aria-label="breadcrumb" class="d-inline-block mt-4 mt-sm-0">
+                        <ul class="breadcrumb bg-transparent rounded mb-0 p-0">
+                            <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="/admin/products">Product List</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Product Detail</li>
+                        </ul>
+                    </nav>
                 </div>
-                <div class="table-responsive">
-                    <th:block th:if="${data == null}">
-                        <h6 class="text-center">You have no account!</h6> <br>
-                    </th:block>
-                    <th:block th:if="${data != null}">
-                        <table class="table table-bordered" id="dataTable">
-                            <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Phone</th>
-                                <th scope="col">Address</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="account : ${data}">
-                                <td th:text="${account.id}"></td>
-                                <td th:text="${account.email}"></td>
-                                <td th:text="${account.name}"></td>
-                                <td th:text="${account.phone}"></td>
-                                <td th:text="${account.address}"></td>
-                                <td>
-                                    <a th:href="@{'updateAccount?id=' + ${account.id}}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                             fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                            <path fill-rule="evenodd"
-                                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                        </svg>
-                                    </a>
-                                    <div th:attr="update-id=${account.id},data-title=${account.name}" onclick="showConfirmationDialog(this)"
-                                         style="border: none; background-color: white; color: blue" >
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                             fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
-                                        </svg>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </th:block>
-                </div>
+
+                <div class="card border-0 rounded shadow p-4 mt-4">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-md-5">
+                            <div class="slider slider-for">
+                                <div><img th:src="${product.image}" class="img-fluid rounded" alt=""></div>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-8 col-md-7 mt-4 mt-sm-0">
+                            <div class="ms-md-4">
+                                <h4 class="title" th:text="${product.name}"></h4>
+                                <h5 class="text-muted" th:text="${product.price + '000 ₫'}"></h5>
+                                <h5 class="text-muted small font-italic mb-0 mt-1" th:if="${product.status == 1}">Available</h5>
+                                <h5 class="text-muted small font-italic mb-0 mt-1" th:if="${product.status == 0}">Unavailable</h5>
+
+                                <h5 class="mt-4 py-2">Overview :</h5>
+                                <p th:if="${product.description == ''}" style="margin-top: 0px;">No description</p>
+                                <p th:unless="${product.description == ''}" style="margin-top: 0px;" th:text="${product.description}"></p>
+
+                                <div class="mt-4 pt-2">
+                                    <a th:href="'/admin/updateProduct?id=' + ${product.id}" class="btn btn-primary">Update</a>
+                                    <div th:attr="update-id=${product.id},data-title=${product.name}" onclick="showConfirmationDialog(this)" class="btn btn-warning ms-2">Delete?</div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div>
+                </div><!--end row-->
             </div>
+
             <!-- Modal Dialog -->
             <div id="confirmationModal" class="modal fade" tabindex="-1" role="dialog"
                  aria-labelledby="exampleModalLabel" aria-hidden="true" style="padding-top: 100px;">
@@ -240,16 +222,6 @@
 
 <script th:src="@{https://code.jquery.com/jquery-3.5.1.js}"></script>
 <script th:src="@{https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js}" crossorigin="anonymous"></script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#dataTable').DataTable({
-            "dom": 'frt<"#toolbar.dt-box"><"dt-box">p',
-            "bInfo": false,
-        });
-    });
-</script>
-
 <script>
     let id;
     let confirmClicked = false;
@@ -268,14 +240,13 @@
     });
 
     $(".confirmButton").click(function () {
-        fetch(`/admin/deleteAccount?id=${id}`)
+        fetch(`/admin/deleteProduct?id=${id}`)
             .then(() => {
                 confirmClicked = true;
                 $('#confirmationModal').modal('hide');
-                location.reload();
+                window.location.href = "/admin/productList";
             });
     });
 </script>
-
 </body>
 </html>
