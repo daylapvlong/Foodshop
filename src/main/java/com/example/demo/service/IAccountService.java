@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface IAccountService {
 
+    List<Account> getAllAccount();
+
     List<Account> getAllAccountByRole(Integer roleId);
 
     Account getAccountById(Integer id);

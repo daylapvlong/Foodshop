@@ -14,16 +14,16 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "AccountId")
+    @Column(name = "account_id")
     private String accountId;
 
-    @Column(name = "OrderDate")
+    @Column(name = "order_date")
     private String OrderDate;
 
     @Column(name = "Address")
     private String Address;
 
-    @Column(name = "TotalPrice")
+    @Column(name = "total_price")
     private float price;
 
     @Column(name = "Status")

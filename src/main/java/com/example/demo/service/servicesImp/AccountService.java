@@ -15,6 +15,8 @@ public class AccountService implements IAccountService {
     @Autowired
     IAccountRepository accountRepository;
     @Override
+    public List<Account> getAllAccount(){return accountRepository.findAll();}
+    @Override
     public List<Account> getAllAccountByRole(Integer roleId){ return accountRepository.findByRole(roleId);}
     @Override
     public Account getAccountById(Integer id) {
