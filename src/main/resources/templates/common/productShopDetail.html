@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <!-- simplebar -->
+    <link th:href="@{/css/simplebar.css}" rel="stylesheet" type="text/css"/>
+    <!-- Select2 -->
+    <link th:href="@{/css/select2.min.css}" rel="stylesheet"/>
+    <!-- Date picker -->
+    <link rel="stylesheet" th:href="@{/css/flatpickr.min.css}">
+    <link th:href="@{/css/jquery.timepicker.min.css}" rel="stylesheet" type="text/css"/>
+    <!-- Icons -->
+    <link th:href="@{/css/materialdesignicons.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/remixicon.css}" rel="stylesheet" type="text/css"/>
+    <script th:src="@{https://use.fontawesome.com/releases/v6.3.0/js/all.js}" crossorigin="anonymous"></script>
+    <!-- Css -->
+    <link th:href="@{/css/style.min.css}" rel="stylesheet" type="text/css" id="theme-opt"/>
+    <link th:href="@{/css/modal.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <style>
+        h3, h4, h5, h6, button {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            text-transform: capitalize;
+            color: black;
+        }
+
+        .modal-confirm {
+            color: #636363;
+            width: 400px;
+        }
+
+        .modal-confirm .modal-content {
+            padding: 20px;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .modal-confirm .modal-header {
+            border-bottom: none;
+            position: relative;
+        }
+
+        .modal-confirm h4 {
+            text-align: center;
+            font-size: 26px;
+            margin: 30px 0 -10px;
+        }
+
+        .modal-confirm .close {
+            position: absolute;
+            top: -5px;
+            right: -2px;
+        }
+
+        .modal-confirm .modal-body {
+            color: #999;
+        }
+
+        .modal-confirm .modal-footer {
+            border: none;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 13px;
+            padding: 10px 15px 25px;
+        }
+
+        .modal-confirm .modal-footer a {
+            color: #999;
+        }
+
+        .modal-confirm .icon-box {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            border-radius: 50%;
+            z-index: 9;
+            text-align: center;
+            border: 3px solid #f15e5e;
+        }
+
+        .modal-confirm .icon-box i {
+            color: #f15e5e;
+            font-size: 46px;
+            display: inline-block;
+            margin-top: 13px;
+        }
+
+        .modal-confirm .btn,
+        .modal-confirm .btn:active {
+            color: #fff;
+            border-radius: 4px;
+            background: #60c7c1;
+            text-decoration: none;
+            transition: all 0.4s;
+            line-height: normal;
+            min-width: 120px;
+            border: none;
+            min-height: 40px;
+            border-radius: 3px;
+            margin: 0 5px;
+        }
+
+        .modal-confirm .btn-secondary {
+            background: #c1c1c1;
+        }
+
+        .modal-confirm .btn-secondary:hover,
+        .modal-confirm .btn-secondary:focus {
+            background: #a8a8a8;
+        }
+
+        .modal-confirm .btn-danger {
+            background: #f15e5e;
+        }
+
+        .modal-confirm .btn-danger:hover,
+        .modal-confirm .btn-danger:focus {
+            background: #ee3535;
+        }
+
+        .trigger-btn {
+            display: inline-block;
+            margin: 100px auto;
+        }
+    </style>
+</head>
+<body>
+<!-- Loader -->
+<div id="preloader">
+    <div id="status">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+</div>
+<!-- Loader -->
+<div class="page-wrapper doctris-theme toggled">
+    <div th:replace="~{dashboardSidebar}"></div>
+    <main class="page-content bg-light">
+        <div th:replace="~{dashboardHeader}"></div>
+        <div class="container-fluid">
+            <!-- Product Detail -->
+            <div class="layout-specing">
+                <div class="d-md-flex justify-content-between">
+                    <h5 class="mb-0" th:text="${product.name}"></h5>
+
+                    <nav aria-label="breadcrumb" class="d-inline-block mt-4 mt-sm-0">
+                        <ul class="breadcrumb bg-transparent rounded mb-0 p-0">
+                            <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="/admin/products">Product List</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Product Detail</li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="card border-0 rounded shadow p-4 mt-4">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-md-5">
+                            <div class="slider slider-for">
+                                <div><img th:src="${product.image}" class="img-fluid rounded" alt=""></div>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-8 col-md-7 mt-4 mt-sm-0">
+                            <div class="ms-md-4">
+                                <h4 class="title" th:text="${product.name}"></h4>
+                                <h5 class="text-muted" th:text="${product.price + '000 ₫'}"></h5>
+                                <h5 class="text-muted small font-italic mb-0 mt-1" th:if="${product.status == 1}">Available</h5>
+                                <h5 class="text-muted small font-italic mb-0 mt-1" th:if="${product.status == 0}">Unavailable</h5>
+
+                                <h5 class="mt-4 py-2">Overview :</h5>
+                                <p th:if="${product.description == ''}" style="margin-top: 0px;">No description</p>
+                                <p th:unless="${product.description == ''}" style="margin-top: 0px;" th:text="${product.description}"></p>
+
+                                <div class="d-flex shop-list align-items-center">
+                                    <h6 class="mb-0">Qty:</h6>
+                                    <div class="qty-icons ms-3">
+                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-icon btn-primary minus">-</button>
+                                        <input min="0" name="quantity" value="0" type="number" class="btn btn-icon btn-primary qty-btn quantity">
+                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-icon btn-primary plus">+</button>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 pt-2">
+                                    <a href="#" class="btn btn-primary">Shop Now</a>
+                                    <a href="#" class="btn btn-soft-primary ms-2">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h5 class="mb-0">Related Products:</h5>
+                            </div><!--end col-->
+                        </div><!--end row-->
+
+                        <div class="row">
+                            <div class="col-lg-12 mt-4">
+                                <div class="slider-range-four">
+                                    <div class="tiny-slide">
+                                        <div class="card shop-list border-0 overflow-hidden rounded shadow m-1" th:each="productByCate : ${category}">
+                                            <ul class="label list-unstyled mb-0">
+                                                <li>
+                                                    <a href="javascript:void(0)" class="badge badge-pill badge-success">Featured</a>
+                                                </li>
+                                            </ul>
+                                            <div class="shop-image position-relative overflow-hidden">
+                                                <a th:href="@{'/productBuyerDetail?id=' + ${productByCate.id} +'&categoryId=' +${productByCate.category}}"><img th:src="${productByCate.image}" class="img-fluid" alt=""></a>
+                                            </div>
+                                            <div class="card-body content pt-4 border-top">
+                                                <a th:href="@{'/productBuyerDetail?id=' + ${productByCate.id} +'&categoryId=' +${productByCate.category}}" class="text-dark product-name h6" th:text="${productByCate.name}"></a>
+                                                <div class="d-flex justify-content-between mt-1">
+                                                    <h6 class="text-muted small font-italic mb-0 mt-1" th:text="${productByCate.price + '000 ₫'}"></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!--end col-->
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+                    </div>
+                </div><!--end row-->
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- javascript -->
+<script th:src="@{js/bootstrap.bundle.min.js}"></script>
+<!-- Icons -->
+<script th:src="@{js/feather.min.js}"></script>
+<!-- Main Js -->
+<script th:src="@{js/app.js}"></script>
+<script th:src="@{https://code.jquery.com/jquery-3.5.1.js}"></script>
+<script th:src="@{https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js}" crossorigin="anonymous"></script>
+
+</body>
+</html>

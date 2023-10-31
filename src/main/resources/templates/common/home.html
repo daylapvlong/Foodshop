@@ -46,9 +46,11 @@
         <div th:each="item, loop : ${data}" th:if="${loop.index < 4}" class="w3-quarter session-product">
             <img class="img" th:src="${item.image}" alt="Sandwich" style="width:100%">
             <div>
-                <h3 th:text="${item.name}"></h3>
-                <p th:if="${item.description == ''}" style="margin-top: 0px;">No description</p>
-                <p th:unless="${item.description == ''}" style="margin-top: 0px;" th:text="${item.description}"></p>
+                <a th:href="@{'/productBuyerDetail?id=' + ${item.id} +'&categoryId=' +${item.category}}">
+                    <h3 th:text="${item.name}"></h3>
+                    <p th:if="${item.description == ''}" style="margin-top: 0px;">No description</p>
+                    <p th:unless="${item.description == ''}" style="margin-top: 0px;" th:text="${item.description}"></p>
+                </a>
             </div>
             <div class="price-addtocart">
                 <p class="text" th:text="${item.price + '000 ₫'}"></p>
@@ -66,9 +68,11 @@
              class="w3-quarter session-product">
             <img class="img" th:src="${item.image}" alt="Sandwich" style="width:100%">
             <div>
-                <h3 th:text="${item.name}"></h3>
-                <p th:if="${item.description == ''}" style="margin-top: 0px;">No description</p>
-                <p th:unless="${item.description == ''}" style="margin-top: 0px;" th:text="${item.description}"></p>
+                <a th:href="@{'/productBuyerDetail?id=' + ${item.id} +'&categoryId=' +${item.category}}">
+                    <h3 th:text="${item.name}"></h3>
+                    <p th:if="${item.description == ''}" style="margin-top: 0px;">No description</p>
+                    <p th:unless="${item.description == ''}" style="margin-top: 0px;" th:text="${item.description}"></p>
+                </a>
             </div>
             <div class="price-addtocart">
                 <p class="text" th:text="${item.price + '000 ₫'}"></p>
@@ -86,9 +90,11 @@
              class="w3-quarter session-product">
             <img class="img" th:src="${item.image}" alt="Sandwich" style="width:100%">
             <div>
-                <h3 th:text="${item.name}"></h3>
-                <p th:if="${item.description == ''}" style="margin-top: 0px;">No description</p>
-                <p th:unless="${item.description == ''}" style="margin-top: 0px;" th:text="${item.description}"></p>
+                <a th:href="@{'/productBuyerDetail?id=' + ${item.id} +'&categoryId=' +${item.category}}">
+                    <h3 th:text="${item.name}"></h3>
+                    <p th:if="${item.description == ''}" style="margin-top: 0px;">No description</p>
+                    <p th:unless="${item.description == ''}" style="margin-top: 0px;" th:text="${item.description}"></p>
+                </a>
             </div>
             <div class="price-addtocart">
                 <p class="text" th:text="${item.price + '000 ₫'}"></p>
@@ -106,9 +112,11 @@
              class="w3-quarter session-product">
             <img class="img" th:src="${item.image}" alt="Sandwich" style="width:100%">
             <div>
-                <h3 th:text="${item.name}"></h3>
-                <p th:if="${item.description == ''}" style="margin-top: 0px;">No description</p>
-                <p th:unless="${item.description == ''}" style="margin-top: 0px;" th:text="${item.description}"></p>
+                <a th:href="@{'/productBuyerDetail?id=' + ${item.id} +'&categoryId=' +${item.category}}">
+                    <h3 th:text="${item.name}"></h3>
+                    <p th:if="${item.description == ''}" style="margin-top: 0px;">No description</p>
+                    <p th:unless="${item.description == ''}" style="margin-top: 0px;" th:text="${item.description}"></p>
+                </a>
             </div>
             <div class="price-addtocart">
                 <p class="text" th:text="${item.price + '000 ₫'}"></p>

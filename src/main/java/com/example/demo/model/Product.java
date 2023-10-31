@@ -26,8 +26,8 @@ public class Product {
     @Column(name = "Image")
     private String image;
 
-    @Column(name = "Category")
-    private String category;
+    @Column(name = "CategoryID")
+    private int category;
 
     @Column(name = "Status")
     private int status;

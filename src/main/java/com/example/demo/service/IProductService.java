@@ -9,6 +9,8 @@ public interface IProductService {
 
     List<Product> getAllProducts(int pageNo, int pageSize);
 
+    List<Product> getProductByCategory(Integer categotyId);
+
     Product getProductById(Integer id);
 
     void deleteProduct(Integer id);

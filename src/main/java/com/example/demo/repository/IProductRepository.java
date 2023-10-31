@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.net.ContentHandler;
+import java.util.List;
 
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Integer> {
@@ -17,4 +18,9 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
             "AND p.categoryId = :categoryId"
             ,nativeQuery = true)
     Page<Product> searchProductAndFilterByCategory(String search, Integer categoryId, Pageable pageable);
+
+    @Query(value = "SELECT * FROM product p " +
+            "WHERE p.categoryId = :categoryId"
+            ,nativeQuery = true)
+    List<Product> getProductByCategory(Integer categoryId);
 }
