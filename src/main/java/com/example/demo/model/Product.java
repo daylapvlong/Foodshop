@@ -31,4 +31,8 @@ public class Product {
 
     @Column(name = "Status")
     private int status;
+
+    private int quantity;
+
+    private int totalPrice;
 }

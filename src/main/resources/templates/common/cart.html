@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title><!-- favicon -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico.png}">
+    <!-- Bootstrap -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <!-- simplebar -->
+    <link th:href="@{/css/simplebar.css}" rel="stylesheet" type="text/css"/>
+    <!-- Select2 -->
+    <link th:href="@{/css/select2.min.css}" rel="stylesheet"/>
+    <!-- Date picker -->
+    <link rel="stylesheet" th:href="@{/css/flatpickr.min.css}">
+    <link th:href="@{/css/jquery.timepicker.min.css}" rel="stylesheet" type="text/css"/>
+    <!-- Icons -->
+    <link th:href="@{/css/materialdesignicons.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/remixicon.css}" rel="stylesheet" type="text/css"/>
+    <script th:src="@{https://use.fontawesome.com/releases/v6.3.0/js/all.js}" crossorigin="anonymous"></script>
+    <!-- Css -->
+    <link th:href="@{/css/style.min.css}" rel="stylesheet" type="text/css" id="theme-opt"/>
+
+</head>
+<body>
+
+<!-- header -->
+<div th:replace="header"></div>
+
+<!-- body -->
+<div class="container-fluid" style="padding-right: 80px; padding-left: 80px; padding-top: 80px">
+    <div class="layout-specing">
+        <div class="d-md-flex justify-content-between">
+            <h5 class="mb-0">Shopcart</h5>
+
+            <nav aria-label="breadcrumb" class="d-inline-block mt-4 mt-sm-0">
+                <ul class="breadcrumb bg-transparent rounded mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Shopcart</li>
+                </ul>
+            </nav>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="table-responsive bg-white shadow rounded">
+                    <table class="table table-center table-padding mb-0">
+                        <thead>
+                        <tr>
+                            <th class="border-bottom p-3" style="min-width:20px"></th>
+                            <th class="border-bottom p-3" style="min-width: 300px;">Product</th>
+                            <th class="border-bottom text-center p-3" style="min-width: 160px;">Price</th>
+                            <th class="border-bottom text-center p-3" style="min-width: 190px;">Qty</th>
+                            <th class="border-bottom text-end p-3" style="min-width: 50px;">Total</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:if="${cartList.isEmpty()}">
+                            <td><h6 class="mb-0 ms-3">You need to add a product first!</h6></td>
+                        </tr>
+                        <tr th:each="item : ${cartList}">
+                            <td class="h5 p-3 text-center"><button type="button" class="text-danger" th:onclick="'confirmDelete(' + ${item.id} + ')'">x</button></td>
+                            <td class="p-3">
+                                <div class="d-flex align-items-center">
+                                    <img th:src="${item.image}" class="img-fluid avatar avatar-small rounded shadow"
+                                         style="height:auto;" alt="">
+                                    <h6 class="mb-0 ms-3" th:text="${item.name}"></h6>
+                                </div>
+                            </td>
+                            <td class="text-center p-3" th:text="${item.price + '000 ₫'}"></td>
+                            <td class="text-center shop-list p-3">
+                                <div class="qty-icons">
+                                    <input name="quantity" th:value="${item.quantity}">
+                                </div>
+                            </td>
+                            <td class="text-end font-weight-bold p-3" th:text="${item.totalPrice + '000 ₫'}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+
+        <div class="row">
+            <div class="col-lg-8 col-md-6 mt-4 pt-2">
+                <a href="/home" class="btn btn-primary">Shop More</a>
+                <button type="submit" class="btn btn-soft-primary ms-2">Update Cart</button>
+            </div>
+            <div class="col-lg-4 col-md-6 ms-auto mt-4 pt-2">
+                <div class="table-responsive bg-white rounded shadow">
+                    <table class="table table-center table-padding mb-0">
+                        <tbody>
+                        <tr class="bg-light">
+                            <td class="h6 p-3">Total</td>
+                            <td class="text-end font-weight-bold p-3"th:text="${total + '000 ₫'}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 pt-2 text-end">
+                    <a href="#" class="btn btn-primary">Proceed to checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmDelete(productID) {
+        if (confirm("Are you sure you want to remove this item?")) {
+            window.location.href = "/cart/delete/" + productID;
+        } else {
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

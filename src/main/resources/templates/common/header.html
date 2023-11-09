@@ -33,7 +33,7 @@
                 </form>
             </div>
             <div style="margin-top: 10px;">
-                <a href="/cart" th:if="${session.account != null}">
+                <a href="/cart">
                     <svg width="30px" height="30px" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg"
                          xmlns:xlink="http://www.w3.org/1999/xlink">
                         <g id="cart" clip-path="url(#clip-cart)">
@@ -56,7 +56,7 @@
 <!--                    <span class='badge badge-warning' id='lblCartCount'-->
 <!--                          style="border-radius: 60rem;">${countProduct}</span>-->
                     <span class='badge badge-warning' id='lblCartCount'
-                          style="border-radius: 60rem;">3</span>
+                          style="border-radius: 60rem;" th:text="${countProduct}"></span>
                 </a>
 
                 <button th:if="${session.account == null}" type="button" onclick="window.location.href='/login'" class="btn btn-outline-success my-2 my-sm-0">Login</button>
