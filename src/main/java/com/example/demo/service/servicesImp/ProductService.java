@@ -16,6 +16,9 @@ public class ProductService implements IProductService {
     IProductRepository productRepository;
 
     @Override
+    public Product saveProduct(Product product){
+        return productRepository.save(product);    }
+    @Override
     public long countProduces() {
         return productRepository.count();
     }

@@ -15,7 +15,7 @@ public class BuyerProductController {
     @Autowired
     ProductService productService;
     @GetMapping("/productBuyerDetail")
-    public String productDetail(Model model, @RequestParam Integer id, @RequestParam Integer categoryId) {
+    public String productBuyerDetail(Model model, @RequestParam Integer id, @RequestParam Integer categoryId) {
         Product product = productService.getProductById(id);
         List<Product> productByCategory = productService.getProductByCategory(categoryId);
         model.addAttribute("product", product);

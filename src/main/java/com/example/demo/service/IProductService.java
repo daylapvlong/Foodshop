@@ -5,6 +5,8 @@ import com.example.demo.model.Product;
 import java.util.List;
 
 public interface IProductService {
+    Product saveProduct(Product product);
+
     long countProduces();
 
     List<Product> getAllProducts(int pageNo, int pageSize);
