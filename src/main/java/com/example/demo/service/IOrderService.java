@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IOrderService {
     List<Order> getAllOrder();
+
+    List<Order> getAllOrderByAccount(String account_id);
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -53,6 +54,34 @@ public class CartController {
         model.addAttribute("total", totalPrice);
 
         return "common/cart";
+    }
+
+    @PostMapping("/updatecart")
+    public String updateCart(@CookieValue(value = "cart", defaultValue = "") String cart,
+                             HttpServletResponse response, @RequestParam Map<String, String> params) {
+        List<Product> cartProduct = cookieToProductList(cart);
+
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            if (entry.getKey().startsWith("quantity-")) {
+                int productId = Integer.parseInt(entry.getKey().substring("quantity-".length()));
+                int quantity = Integer.parseInt(entry.getValue());
+
+                // Update the quantity of the specified product
+                for (Product product : cartProduct) {
+                    if (product.getId().equals(productId)) {
+                        product.setQuantity(quantity);
+                        break;
+                    }
+                }
+            }
+        }
+
+        String updatedCart = productToCookie(cartProduct);
+        Cookie cookie = new Cookie("cart", updatedCart);
+        cookie.setMaxAge(60 * 60 * 24);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        return "redirect:/cart";
     }
 
     @GetMapping("/cart/delete/{productId}")

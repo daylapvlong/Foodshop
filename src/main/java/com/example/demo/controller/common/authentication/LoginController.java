@@ -70,7 +70,7 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(WebRequest request, HttpSession session) {
         session.removeAttribute("user");
-        return "redirect:/";
+        return "redirect:/home";
     }
 
 }

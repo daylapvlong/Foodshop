@@ -14,4 +14,9 @@ public class OrderService implements IOrderService {
     IOrderRepository orderRepository;
     @Override
     public List<Order> getAllOrder(){return orderRepository.findAll();}
+
+    @Override
+    public List<Order> getAllOrderByAccount(String account_id){
+        return orderRepository.findOrderByAccountId(account_id);
+    }
 }

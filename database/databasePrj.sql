@@ -23,7 +23,7 @@ WHERE table_schema = 'prj301';
 
 -- Create the Account table
 CREATE TABLE IF NOT EXISTS Account (
-    AccountID INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     Email VARCHAR(50) NOT NULL UNIQUE,
     Password VARCHAR(50) NOT NULL,
     Name VARCHAR(50) NOT NULL,
@@ -34,24 +34,24 @@ CREATE TABLE IF NOT EXISTS Account (
 
 -- Create the Orders table
 CREATE TABLE IF NOT EXISTS Orders (
-    OrderID INT AUTO_INCREMENT PRIMARY KEY,
-    AccountID INT NOT NULL,
-    OrderDate DATE NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    account_id INT NOT NULL,
+    order_date DATE NOT NULL,
     Address VARCHAR(50) NOT NULL,
-    TotalPrice INT NOT NULL,
+    total_price INT NOT NULL,
     Status INT NOT NULL -- 1: Completed, 0: Cancelled 
 );
 
 -- Create the Category table
 CREATE TABLE IF NOT EXISTS Category (
-    CategoryID INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(50) NOT NULL,
     Image VARCHAR(500)
 );
 
 -- Create the Product table
 CREATE TABLE IF NOT EXISTS Product (
-    ProductID INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(50) NOT NULL,
     Price INT NOT NULL,
     Description VARCHAR(50) NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS Product (
 
 -- Create the OrderDetail table
 CREATE TABLE IF NOT EXISTS OrderDetail (
-    OrderDetailID INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     OrderID INT NOT NULL,
     ProductID INT NOT NULL,
     Quantity INT NOT NULL
@@ -75,7 +75,10 @@ CREATE TABLE IF NOT EXISTS OrderDetail (
 	insert into Account (`Email`,`Password`,`Name`,`Phone`,`Address`, `Role`) values ('duc@gmail.com', '1', 'minh duc', '0124727283', 'Ha Dong, Ha Noi', 2);
 	insert into Account (`Email`,`Password`,`Name`,`Phone`,`Address`, `Role`) values ('long@abc.com', '123456', 'viet long', '0199928372', 'Nam Tu Liem, Ha Noi', 2);
 	insert into Account (`Email`,`Password`,`Name`,`Phone`,`Address`, `Role`) values ('dung@fu.com', '123456', 'thi dung', '0123456789', '', 2);
-	insert into Account (`Email`,`Password`,`Name`,`Phone`,`Address`, `Role`) values ('admin', '1', 'admin', '0123456789', '', 1);
+	insert into Account (`Email`,`Password`,`Name`,`Phone`,`Address`, `Role`) values ('admin@gmail.com', '1', 'admin', '0123456789', '', 1);
+    insert into Account (`Email`,`Password`,`Name`,`Phone`,`Address`, `Role`) values ('aduc@gmail.com', '1', 'ngo duc', '0124727283', 'Ha Dong, Ha Noi', 3);
+	insert into Account (`Email`,`Password`,`Name`,`Phone`,`Address`, `Role`) values ('ex@abc.com', '123456', 'pham thi long', '0199928372', 'Nam Tu Liem, Ha Noi', 3);
+	insert into Account (`Email`,`Password`,`Name`,`Phone`,`Address`, `Role`) values ('gao@fu.com', '123456', 'thi nga', '0123456789', '', 3);
 
 	-- category
 	insert into Category (`Name`,`Image`) values ( 'Chicken', 'https://www.lotteria.vn/media/catalog/tmp/category/BG-Menu-Chicken-01-01_2.jpg');
@@ -112,7 +115,29 @@ CREATE TABLE IF NOT EXISTS OrderDetail (
 	insert into Product (`Name`,`Price`,`Description`,`Image`,`CategoryID`, `Status`) values ( 'Fish Combo', 66, 'Fish Combo', 'https://www.lotteria.vn/media/catalog/tmp/category/BG_New-05_1.jpg', 5, 1);
 
 	-- order
-	insert into Orders (`AccountID`,`OrderDate`,`Address`,`TotalPrice`, `Status`) values (1, '2023-12-12', 'Ha Dong, Ha Noi', 300, 1);
+	insert into Orders (`account_id`,`order_date`,`Address`,`total_price`, `Status`) 
+    values (5, '2023-12-12', 'Ha Dong, Ha Noi', 300, 1),
+			(5, '2023-12-13', 'Address 5X', 150, 1),
+			(5, '2023-12-14', 'Address 5Y', 200, 1),
+			(5, '2023-12-15', 'Address 5Z', 250, 1),
+			(6, '2023-12-16', 'Address 6X', 180, 1),
+			(6, '2023-12-17', 'Address 6Y', 220, 1),
+			(6, '2023-12-18', 'Address 6Z', 270, 1),
+			(7, '2023-12-19', 'Address 7X', 160, 1),
+			(7, '2023-12-20', 'Address 7Y', 210, 1),
+			(7, '2023-12-21', 'Address 7Z', 260, 1),
+			(5, '2023-12-13', 'Some Address', 150, 1),
+			(6, '2023-12-14', 'Another Address', 200, 1),
+			(7, '2023-12-15', 'Yet Another Address', 250, 1),
+			(5, '2023-12-13', 'Address 5A', 120, 1),
+			(5, '2023-12-14', 'Address 5B', 180, 1),
+			(5, '2023-12-15', 'Address 5C', 220, 1),
+			(6, '2023-12-16', 'Address 6A', 130, 1),
+			(6, '2023-12-17', 'Address 6B', 190, 1),
+			(6, '2023-12-18', 'Address 6C', 210, 1),
+			(7, '2023-12-19', 'Address 7A', 160, 1),
+			(7, '2023-12-20', 'Address 7B', 200, 1),
+			(7, '2023-12-21', 'Address 7C', 230, 1);
 
 	-- OrderDetail
 	insert into OrderDetail (`OrderID`,`ProductID`,`Quantity`) values (1, 1, 2);
