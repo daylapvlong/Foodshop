@@ -56,7 +56,7 @@ public class CartController {
     }
 
     @GetMapping("/cart/delete/{productId}")
-    public String deleteProduct(@PathVariable Long productId, HttpServletResponse response,
+    public String deleteProduct(@PathVariable int productId, HttpServletResponse response,
                                 @CookieValue(value = "cart", defaultValue = "") String cart) {
         // Get the current list of products from the cookie
         List<Product> cartProduct = cookieToProductList(cart);
@@ -142,7 +142,7 @@ public class CartController {
         if (cartString.length() > 0) {
             cartString.setLength(cartString.length() - 1);
         }
-
+        System.out.println(cartString);
         return cartString.toString();
     }
 
