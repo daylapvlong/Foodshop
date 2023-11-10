@@ -45,6 +45,35 @@ public class CartController {
         return "redirect:/home";
     }
 
+    @PostMapping("/productToCart")
+    public String productCart(@RequestParam String productId, @RequestParam int quantity,
+                              @CookieValue(value = "cart", defaultValue = "") String cart, HttpServletResponse response){
+
+        if (cart.isEmpty()) {
+            cart = productId + ":" + quantity;
+        } else {
+            String[] products = cart.split("/");
+            boolean isExist = false;
+            for (int i = 0; i < products.length; i++) {
+                String[] product = products[i].split(":");
+                if (product[0].equals(productId)) {
+                    products[i] = productId + ":" + quantity;
+                    isExist = true;
+                    break;
+                }
+            }
+            cart = String.join("/", products);
+            if (!isExist) {
+                cart += "/" + productId + ":" + quantity;
+            }
+        }
+
+        Cookie cookie = new Cookie("cart", cart);
+        cookie.setMaxAge(60 * 60 * 24);
+        response.addCookie(cookie);
+        return "redirect:/cart";
+    }
+
     @GetMapping("/cart")
     public String cart(Model model, @CookieValue(value = "cart", defaultValue = "") String cart){
         List<Product> cartProduct = cookieToProductList(cart);

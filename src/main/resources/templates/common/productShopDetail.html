@@ -163,46 +163,41 @@
         </div>
 
         <div class="card border-0 rounded shadow p-4 mt-4">
+            <form action="productToCart" method="post">
             <div class="row align-items-center">
-                <div class="col-lg-4 col-md-5">
-                    <div class="slider slider-for">
-                        <div><img th:src="${product.image}" class="img-fluid rounded" alt=""></div>
-                    </div>
-                </div><!--end col-->
+                    <input type="hidden" name="productId" th:value="${product.id}">
+                    <div class="col-lg-4 col-md-5">
+                        <div class="slider slider-for">
+                            <div><img th:src="${product.image}" class="img-fluid rounded" alt=""></div>
+                        </div>
+                    </div><!--end col-->
 
-                <div class="col-lg-8 col-md-7 mt-4 mt-sm-0">
-                    <div class="ms-md-4">
-                        <h4 class="title" th:text="${product.name}"></h4>
-                        <h5 class="text-muted" th:text="${product.price + '000 ₫'}"></h5>
-                        <h5 class="text-muted small font-italic mb-0 mt-1" th:if="${product.status == 1}">Available</h5>
-                        <h5 class="text-muted small font-italic mb-0 mt-1" th:if="${product.status == 0}">
-                            Unavailable</h5>
+                    <div class="col-lg-8 col-md-7 mt-4 mt-sm-0">
+                        <div class="ms-md-4">
+                            <h4 class="title" th:text="${product.name}"></h4>
+                            <h5 class="text-muted" th:text="${product.price + '000 ₫'}"></h5>
+                            <h5 class="text-muted small font-italic mb-0 mt-1" th:if="${product.status == 1}">
+                                Available</h5>
+                            <h5 class="text-muted small font-italic mb-0 mt-1" th:if="${product.status == 0}">
+                                Unavailable</h5>
 
-                        <h5 class="mt-4 py-2">Overview :</h5>
-                        <p th:if="${product.description == ''}" style="margin-top: 0px;">No description</p>
-                        <p th:unless="${product.description == ''}" style="margin-top: 0px;"
-                           th:text="${product.description}"></p>
+                            <h5 class="mt-4 py-2">Overview :</h5>
+                            <p th:if="${product.description == ''}" style="margin-top: 0px;">No description</p>
+                            <p th:unless="${product.description == ''}" style="margin-top: 0px;"
+                               th:text="${product.description}"></p>
 
-                        <div class="d-flex shop-list align-items-center">
-                            <h6 class="mb-0">Qty:</h6>
-                            <div class="qty-icons ms-3">
-                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                        class="btn btn-icon btn-primary minus">-
-                                </button>
-                                <input min="0" name="quantity" value="0" type="number"
-                                       class="btn btn-icon btn-primary qty-btn quantity">
-                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                        class="btn btn-icon btn-primary plus">+
-                                </button>
+                            <div class="d-flex shop-list align-items-center">
+                                <h6 class="mb-0">Qty:</h6>
+                                <div class="qty-icons ms-3">
+                                    <input type="text" name="quantity" th:value="${quantity}">
+                                </div>
+                            </div>
+
+                            <div class="mt-4 pt-2">
+                                <button type="submit" class="btn btn-soft-primary ms-2">Add to Cart</button>
                             </div>
                         </div>
-
-                        <div class="mt-4 pt-2">
-                            <a href="#" class="btn btn-primary">Shop Now</a>
-                            <a href="#" class="btn btn-soft-primary ms-2">Add to Cart</a>
-                        </div>
-                    </div>
-                </div><!--end col-->
+                    </div><!--end col-->
 
                 <div class="row mt-4">
                     <div class="col-12">
@@ -240,6 +235,7 @@
                     </div><!--end col-->
                 </div><!--end row-->
             </div>
+            </form>
         </div><!--end row-->
     </div>
 </div>
