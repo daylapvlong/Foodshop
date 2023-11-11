@@ -132,13 +132,6 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @ModelAttribute
-    public void addCommonAttributes(Model model, @CookieValue(value = "cart", defaultValue = "") String cart) {
-        List<Product> cartProduct = cookieToProductList(cart);
-        int countProduct = cartProduct.size();
-        model.addAttribute("countProduct", countProduct);
-    }
-
     public List<Product> cookieToProductList(String cookieValue) {
         ArrayList<Product> productList = new ArrayList<>();
         String[] productEntries = cookieValue.split("/");

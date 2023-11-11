@@ -63,7 +63,7 @@
                 </a>
             </div>
             <div class="price-addtocart">
-                <p class="text" th:text="${item.price + '000 ₫'}"></p>
+                <p class="text" th:text="${item.price + '.000 ₫'}"></p>
                 <form action="addtocart" method="post">
                     <input type="hidden" name="productID" th:value="${item.id}"/>
                     <input type="submit" name="add" value="Add to cart" class="btn btn-addtocart"/>

@@ -1,6 +1,8 @@
 package com.example.demo.service.servicesImp;
 
 import com.example.demo.model.Order;
+import com.example.demo.model.OrderDetail;
+import com.example.demo.repository.IOrderDetailRepository;
 import com.example.demo.repository.IOrderRepository;
 import com.example.demo.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import java.util.List;
 public class OrderService implements IOrderService {
     @Autowired
     IOrderRepository orderRepository;
+    @Autowired
+    IOrderDetailRepository orderDetailRepository;
     @Override
     public List<Order> getAllOrder(){return orderRepository.findAll();}
 
